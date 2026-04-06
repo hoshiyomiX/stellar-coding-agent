@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ============================================================
-#  coding-suisei patch v3.0 — fullstack-dev wrapper + quality gates
+#  coding-suisei patch v3.1 — fullstack-dev wrapper + quality gates
 #
 #  What this does:
 #    1. Deploys coding-suisei skill (quality-gated coding workflow)
@@ -38,7 +38,7 @@ fail()  { echo -e "${RED}[FAIL]${NC}  $*"; }
 
 echo ""
 echo "============================================"
-echo "  coding-suisei patch v3.0"
+echo "  coding-suisei patch v3.1"
 echo "  Trigger marker: ☄️"
 echo "============================================"
 echo ""
@@ -216,7 +216,7 @@ fi
 echo ""
 echo "============================================"
 if [ $ERRORS -eq 0 ]; then
-    echo -e "${GREEN}  ☄️ Patch v3.0 installed!${NC}"
+    echo -e "${GREEN}  ☄️ Patch v3.1 installed!${NC}"
     echo ""
     echo "  • coding-suisei -> skills/coding-suisei/ (with quality gates)"
     echo "  • fullstack-dev wrapper -> skills/fullstack-dev/"

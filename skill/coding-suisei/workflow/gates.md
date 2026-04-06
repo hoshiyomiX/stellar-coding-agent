@@ -23,6 +23,12 @@ These are NOT suggestions. These are hard constraints that MUST be followed for 
 - **Co-located Types**: Types used by one file stay in that file. Shared types go in a `types.ts` file.
 - **No Circular Imports**: If A imports B, B must not import A.
 
+## Import Order
+
+Strict import ordering — see `knowledge/conventions.md` for the full specification.
+
+Summary: `React/Next.js → External packages → Internal (@/ paths) → Relative imports → Types (import type)`
+
 ## Code Smell Ban List
 
 These patterns are FORBIDDEN:
@@ -36,17 +42,6 @@ These patterns are FORBIDDEN:
 ❌ TODO comments without a ticket/context reference
 ❌ Hardcoded strings that should be constants
 ❌ Boolean parameters (use options object or enum instead)
-```
-
-## Import Order
-
-Strict import ordering within every file:
-
-```
-1. External packages (react, zod, etc.)
-2. Internal packages (@/lib, @/components)
-3. Relative imports (./sibling, ../parent)
-4. Types (import type)
 ```
 
 ---

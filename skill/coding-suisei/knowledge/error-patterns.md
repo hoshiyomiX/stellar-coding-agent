@@ -1,83 +1,52 @@
-# Error Patterns — Common Errors and Solutions
+# Error Patterns — Sandbox-Specific Errors
 
-## Runtime Errors
+Common errors in the z.ai sandbox environment. This file focuses on platform-specific issues that are NOT obvious from the error message alone. Generic TypeScript/React errors are excluded — the LLM already knows those.
 
-### `Module not found`
-| Context | Cause | Fix |
-|---------|-------|-----|
-| After new feature | Package not installed | `bun add <package>` |
-| After clone | Dependencies not installed | `bun install` |
-| Import path typo | Wrong path | Check import matches file location |
+---
 
-### `Port 3000 already in use`
-| Cause | Fix |
-|-------|-----|
-| Previous dev server still running | Kill process: `lsof -ti:3000 \| xargs kill` |
-| Another service占用 | Use different port or kill conflicting process |
+## Network / Gateway Errors
 
 ### `ECONNREFUSED` / `fetch failed`
+
 | Context | Cause | Fix |
 |---------|-------|-----|
 | API call to own service | Using absolute URL | Change to relative: `/api/...?XTransformPort=...` |
 | WebSocket connection | Direct port connection | Change to `io('/?XTransformPort=...')` |
 | External API call | No internet or blocked | Use `z-ai-web-dev-sdk` server-side |
 
-### `PrismaClient not generated`
-| Cause | Fix |
-|-------|-----|
-| Schema changed but not pushed | `bun run db:push` |
-| First time setup | `bun run db:push` |
-
 ### `XTransformPort` related errors
+
 | Symptom | Cause | Fix |
 |---------|-------|-----|
 | Gateway timeout | Port number wrong or service down | Check service is running, verify port |
 | 502 Bad Gateway | Service not started | Start the mini-service |
 | Request hits wrong service | Port collision | Use unique port numbers |
 
-## Build/Lint Errors
+## Runtime Errors
 
-### `Type 'X' is not assignable to type 'Y'`
-| Common Cause | Fix |
-|-------------|-----|
-| Missing type annotation | Add explicit return type |
-| API response shape mismatch | Define interface for response, validate with Zod |
-| `any` propagation | Replace `any` with proper type |
+### `Port 3000 already in use`
 
-### `'X' is defined but never used`
-| Fix |
-|-----|
-| Remove unused import/variable |
-| If needed for side effects: `import 'side-effects-package'` |
-
-### `Unexpected token` / Syntax error
 | Cause | Fix |
 |-------|-----|
-| Mixing ESM/CJS | Ensure consistent `import/export` syntax |
-| Missing configuration | Check `tsconfig.json` includes the file |
+| Previous dev server still running | Kill process: `lsof -ti:3000 \| xargs kill` |
 
-## React Errors
+### `PrismaClient not generated`
 
-### `Too many re-renders`
 | Cause | Fix |
 |-------|-----|
-| setState in render body | Move to useEffect or event handler |
-| Infinite useEffect loop | Fix dependency array |
+| Schema changed but not pushed | `bun run db:push` |
+| First time setup | `bun run db:push` |
 
-### `Hydration mismatch`
+### `Module not found` (after adding dependency)
+
 | Cause | Fix |
 |-------|-----|
-| Server/client render difference | Move dynamic content to `'use client'` component |
-| Date/time rendering | Use `suppressHydrationWarning` or client-only render |
-
-### `Objects are not valid as React child`
-| Cause | Fix |
-|-------|-----|
-| Rendering object directly | Use `JSON.stringify()` or access specific properties |
+| Package installed but not in node_modules | `bun install` |
 
 ## WebSocket Errors
 
 ### `socket.io` connection failed
+
 | Cause | Fix |
 |-------|-----|
 | Using direct URL | Change to `io('/?XTransformPort=<port>')` |
@@ -93,7 +62,8 @@ When you encounter an error, follow this order:
 ```
 1. Read the error message carefully (don't skim)
 2. Check dev.log: tail -50 /home/z/my-project/dev.log
-3. Identify the layer: syntax → type → runtime → network
-4. Match against patterns in this file
-5. If no match: isolate the error, create minimal reproduction
+3. Is this a sandbox-specific issue? (localhost, port, XTransformPort, Prisma)
+   → YES: Match against patterns in this file
+   → NO: Apply standard debugging (type check, syntax, logic)
+4. If no match: isolate the error, create minimal reproduction
 ```

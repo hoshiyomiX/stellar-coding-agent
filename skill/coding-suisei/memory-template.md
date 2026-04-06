@@ -34,5 +34,6 @@ Last updated: YYYY-MM-DD
 ## Notes
 
 - Check `criteria.md` for additional user-specific criteria
-- Use `planning.md` for breaking down complex requests
-- Verify with tests and screenshots per `verification.md`
+- Use `workflow/plan-template.md` for structured planning
+- Use `workflow/review-checklist.md` for verification checklist
+- Use `workflow/gates.md` for mandatory coding constraints

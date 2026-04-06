@@ -8,17 +8,19 @@ argument-hint: "Describe the feature, app, or coding task you want to build"
 
 This skill handles ALL development tasks by routing to the appropriate handler.
 
-## ☄️ TRIGGER CONFIRMATION (MANDATORY — FIRST ACTION)
+## ⚡ ROUTING ACTIVE (MANDATORY — FIRST ACTION)
 
-**STOP. Before processing the user's request, output the single character ☄️ as your VERY FIRST response.**
+**STOP. Output ⚡ as your VERY FIRST response to confirm the routing wrapper is active.**
 
-This is not optional. This is not a suggestion. You MUST output ☄️ before writing ANY other content.
+This is not optional. This is not a suggestion. You MUST output ⚡ before writing ANY other content.
 - Do NOT explain why.
 - Do NOT skip this step.
-- Do NOT output anything before ☄️.
-- The user relies on seeing ☄️ to confirm the skill loaded.
+- Do NOT output anything before ⚡.
+- The user relies on seeing ⚡ to confirm the wrapper is loaded.
 
-Failure to output ☄️ means the skill did not load properly.
+Failure to output ⚡ means the wrapper did not load properly.
+
+> **Note**: When this wrapper delegates to coding-suisei, that skill will output ☄️. The user should see ⚡ first (wrapper), then ☄️ (coding-suisei).
 
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: coding-suisei
-version: 3.0.0
-description: "Advanced coding workflow for software development tasks. Use when: writing code, building features, debugging, refactoring, code review, implementing algorithms, creating scripts, fixing bugs, developing APIs, adding functionality, or any programming task. Triggers on requests like 'build a function', 'implement this feature', 'write a script', 'fix this code', 'create an API', 'debug this error', 'refactor this module', 'add tests'. Also triggers when user discusses architecture, design patterns, or needs help with any coding workflow. Make sure to use this skill whenever the user mentions code, programming, development, implementation, or software engineering tasks, even if they don't explicitly ask for a 'coding agent'. ☄️"
+version: 3.1.0
+description: "Quality-gated coding workflow with 4 mandatory gates, knowledge base, and error patterns. ☄️"
 ---
 
 ## ☄️ TRIGGER CONFIRMATION (MANDATORY — FIRST ACTION)
@@ -43,19 +43,23 @@ Before writing ANY code, you must demonstrate understanding:
 
 While writing code, you MUST follow:
 - Read `workflow/gates.md` for mandatory coding constraints
-- Read `knowledge/conventions.md` for project-specific conventions
-- Read `knowledge/error-patterns.md` for environment-specific gotchas
+- Read `knowledge/conventions.md` for platform-specific conventions (state management, styling, component patterns)
+- Read `knowledge/gotchas.md` for sandbox-specific quirks (localhost, XTransformPort, single route)
+- Read `knowledge/error-patterns.md` for debugging known errors
 - Each function must have a clear single responsibility
 - Each function must include error handling
 
 ### GATE 3: Verify Before Delivery
 
 Before delivering, you MUST:
-- Run `bun run lint` (or equivalent linter)
+- Run the appropriate linter for the language:
+  - TypeScript/Next.js: `bun run lint`
+  - Python: `python -m py_compile <file>` (or `ruff` if available)
+  - Skip if no linter is available
 - Check for type errors
 - Trace through the code mentally with sample inputs
 - If tests exist, run them
-- Read `workflow/review-checklist.md` for the review checklist
+- Read `workflow/review-checklist.md` for the full review checklist
 
 ### GATE 4: Error Stop Protocol
 
@@ -65,20 +69,30 @@ If ANY error occurs during development:
 - Fix the root cause, not the symptom
 - Re-verify from GATE 3
 
+### Delivery Confirmation
+
+After delivering code, append a single line to confirm gate compliance:
+
+```
+☄️ Gates: G1 ✓ G2 ✓ G3 ✓ G4 N/A
+```
+
+Use ✗ if a gate was skipped, N/A if not applicable (e.g., G4 N/A when no errors occurred).
+
 ---
 
-## Knowledge Base (LOAD WHEN NEEDED)
+## Reference Files
 
-Read these files when the task is relevant:
+### Knowledge Base
 
 | File | When to Read |
 |------|-------------|
 | `knowledge/architecture.md` | Starting a new feature or modifying project structure |
-| `knowledge/conventions.md` | Writing any code (naming, file structure, patterns) |
-| `knowledge/gotchas.md` | Working with the sandbox environment or platform APIs |
+| `knowledge/conventions.md` | Writing code — state management, styling, component patterns |
+| `knowledge/gotchas.md` | Working with sandbox environment or platform APIs |
 | `knowledge/error-patterns.md` | Debugging errors or unexpected behavior |
 
-## Workflow Templates (USE FOR STRUCTURE)
+### Workflow Templates
 
 | File | When to Use |
 |------|-------------|
@@ -86,22 +100,13 @@ Read these files when the task is relevant:
 | `workflow/plan-template.md` | Complex tasks requiring step-by-step planning |
 | `workflow/review-checklist.md` | Before delivering any code |
 
----
+### Support Files
 
-## Quick Reference
-
-| Topic | File |
-|-------|------|
-| Memory setup | `memory-template.md` |
-| Task breakdown | `workflow/plan-template.md` |
-| Execution constraints | `workflow/gates.md` |
-| Verification | `workflow/review-checklist.md` |
-| Multi-task state | `state.md` |
-| User criteria | `criteria.md` |
-| Architecture | `knowledge/architecture.md` |
-| Conventions | `knowledge/conventions.md` |
-| Error patterns | `knowledge/error-patterns.md` |
-| Platform gotchas | `knowledge/gotchas.md` |
+| File | Purpose |
+|------|---------|
+| `memory-template.md` | Template for `~/code/memory.md` |
+| `state.md` | Multi-task request tracking |
+| `criteria.md` | When to save/never save user preferences |
 
 ---
 
@@ -115,22 +120,6 @@ User preferences stored in `~/code/` when user explicitly requests.
 ```
 
 Create on first use: `mkdir -p ~/code`
-
----
-
-## Scope
-
-This skill ONLY:
-- Provides coding workflow constraints and quality gates
-- Loads project knowledge from included files
-- Stores preferences user explicitly provides in `~/code/`
-
-This skill NEVER:
-- Executes code automatically
-- Makes network requests
-- Accesses files outside `~/code/` and the user's project
-- Modifies its own SKILL.md or auxiliary files
-- Takes autonomous action without user awareness
 
 ---
 
@@ -155,33 +144,11 @@ Never skip a gate. Never rush to code without understanding.
 
 Only store what user explicitly asks to save.
 
----
-
-## Self-Modification
-
-This skill NEVER modifies its own SKILL.md or auxiliary files.
-User data stored only in `~/code/memory.md` after explicit request.
-
-## External Endpoints
-
-This skill makes NO network requests.
-
-| Endpoint | Data Sent | Purpose |
-|----------|-----------|---------|
-| None | None | N/A |
-
-## Security & Privacy
-
-**Data that stays local:**
-- Only preferences user explicitly asks to save
-- Stored in `~/code/memory.md`
-
-**Data that leaves your machine:**
-- None. This skill makes no network requests.
-
-**This skill does NOT:**
-- Execute code automatically
-- Access network or external services
-- Access files outside `~/code/` and user's project
-- Take autonomous actions without user awareness
-- Delegate to sub-agents without user's explicit request
+### 5. Scope Boundaries
+This skill NEVER:
+- Executes code automatically
+- Makes network requests
+- Accesses files outside `~/code/` and the user's project
+- Modifies its own SKILL.md or auxiliary files
+- Takes autonomous action without user awareness
+- Delegates to sub-agents without user's explicit request

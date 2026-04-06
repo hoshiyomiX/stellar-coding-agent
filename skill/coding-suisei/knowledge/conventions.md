@@ -1,35 +1,25 @@
-# Code Conventions
+# Code Conventions — Platform-Specific
 
-## Naming
+This file covers conventions specific to the z.ai sandbox environment. Standard best practices (naming, basic TypeScript) are not repeated here.
 
-| Element | Convention | Example |
-|---------|-----------|---------|
-| Files (components) | PascalCase.tsx | `UserDashboard.tsx` |
-| Files (utilities) | camelCase.ts | `formatDate.ts` |
-| Files (constants) | camelCase.ts | `apiRoutes.ts` |
-| React components | PascalCase | `export function UserProfile` |
-| Utility functions | camelCase | `export function formatDate` |
-| Constants | UPPER_SNAKE | `const MAX_RETRIES = 3` |
-| Types/Interfaces | PascalCase | `interface UserProfile` |
-| Boolean variables | `is`/`has`/`should` prefix | `isLoading`, `hasError` |
-| Event handlers | `handle` prefix | `handleClick`, `handleSubmit` |
+## React Patterns
 
-## File Organization
+### 'use client' and 'use server'
 
-### Component Files
+- Components using hooks → `'use client'`
+- Server-only functions → `'use server'`
+- Components with no hooks → can be server components (default)
 
-```typescript
-// Order within a component file:
-// 1. Imports
-// 2. Types/Interfaces
-// 3. Constants
-// 4. Helper functions
-// 5. Main component
-// 6. Sub-components
-// 7. Export
-```
+### State Management
 
-### Import Order (Strict)
+- Local UI state → `useState`
+- Shared client state → Zustand store
+- Server state → TanStack Query
+- Form state → React Hook Form + Zod validation
+
+## Import Order
+
+Strict import ordering within every file:
 
 ```typescript
 // 1. React/Next.js
@@ -50,49 +40,18 @@ import { formatDate } from './utils';
 import type { User } from '@/types';
 ```
 
-## TypeScript Patterns
-
-### Prefer interfaces for objects, types for unions
+## File Organization
 
 ```typescript
-// DO: interface for object shapes
-interface User {
-  id: string;
-  name: string;
-  email: string;
-}
-
-// DO: type for unions or intersections
-type Status = 'active' | 'inactive' | 'suspended';
-type ApiResponse<T> = Success<T> | Error;
+// Order within a component file:
+// 1. Imports
+// 2. Types/Interfaces
+// 3. Constants
+// 4. Helper functions
+// 5. Main component
+// 6. Sub-components
+// 7. Export
 ```
-
-### Prefer `unknown` over `any`
-
-```typescript
-// DON'T
-function parse(data: any) { }
-
-// DO
-function parse(data: unknown) {
-  if (typeof data === 'string') { }
-}
-```
-
-## React Patterns
-
-### 'use client' and 'use server'
-
-- Components using hooks → `'use client'`
-- Server-only functions → `'use server'`
-- Components with no hooks → can be server components (default)
-
-### State Management
-
-- Local UI state → `useState`
-- Shared client state → Zustand store
-- Server state → TanStack Query
-- Form state → React Hook Form + Zod validation
 
 ## CSS/Styling
 
@@ -101,3 +60,9 @@ function parse(data: unknown) {
 - No custom CSS files unless absolutely necessary
 - Avoid indigo/blue colors unless user requests them
 - Always use responsive prefixes: `sm:`, `md:`, `lg:`, `xl:`
+
+## TypeScript
+
+- Prefer `unknown` over `any` — narrow with type guards
+- Prefer interfaces for object shapes, types for unions
+- Use `import type` for type-only imports

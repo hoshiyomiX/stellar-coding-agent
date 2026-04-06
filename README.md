@@ -1,6 +1,6 @@
 # ☄️ coding-suisei Patch
 
-**Persistent coding workflow skill for the Clawd platform.**
+**Persistent coding workflow skill patch for [z.ai](https://z.ai) GLM 5.**
 
 Quality-gated coding workflow that enforces structured development processes — understand before coding, write with constraints, verify before delivery. Deployed via `setup.sh`.
 
@@ -23,7 +23,7 @@ Quality-gated coding workflow that enforces structured development processes —
 ## Quick Install
 
 ```bash
-git clone https://github.com/hoshiyomiX/coding-agent-patch.git /tmp/cap
+git clone https://github.com/hoshiyomiX/coding-suisei.git /tmp/cap
 cd /tmp/cap && bash setup.sh
 ```
 
@@ -43,7 +43,7 @@ Setup is **idempotent** — safe to re-run. It will:
 
 ## How to Invoke coding-suisei
 
-The platform uses hardcoded skill descriptions for trigger matching. `coding-suisei` is **not** in the platform's built-in whitelist, so it relies on two paths to get invoked:
+The z.ai GLM 5 platform uses hardcoded skill descriptions (`<available_skills>`) for trigger matching. `coding-suisei` is **not** in the built-in whitelist, so it relies on two paths to get invoked:
 
 ### Path 1: Direct invocation (most reliable)
 
@@ -82,7 +82,7 @@ Start the session with a web dev keyword (Next.js, React, dashboard, UI), then o
 │   ├── knowledge/                  # Tier 1 Knowledge Base
 │   │   ├── architecture.md         # Sandbox environment constraints & project structure
 │   │   ├── conventions.md          # Naming, imports, file patterns, code style
-│   │   ├── gotchas.md              # Platform-specific quirks & non-obvious behaviors
+│   │   ├── gotchas.md              # z.ai sandbox-specific quirks & non-obvious behaviors
 │   │   └── error-patterns.md       # Common errors → causes → fixes lookup table
 │   ├── workflow/                   # Tier 1 Workflow Templates
 │   │   ├── gates.md                # Mandatory coding constraints (no `any`, <50 lines, etc.)
@@ -95,7 +95,7 @@ Start the session with a web dev keyword (Next.js, React, dashboard, UI), then o
 │
 └── fullstack-dev/                  # Patched with routing wrapper
     ├── SKILL.md                    # Wrapper: routes web dev ↔ coding-suisei
-    └── SKILL.md.original           # Platform original (backup for rollback)
+    └── SKILL.md.original           # z.ai original (backup for rollback)
 ```
 
 ### Routing Flow
@@ -104,7 +104,7 @@ Start the session with a web dev keyword (Next.js, React, dashboard, UI), then o
 User Prompt
     │
     ▼
-Platform matches <available_skills> description
+z.ai GLM 5 matches <available_skills> description
     │
     ├── Matches "fullstack-dev" ──► SKILL.md loaded
     │                                   │
@@ -158,7 +158,7 @@ Four reference files the LLM loads contextually:
 |------|------------|
 | `knowledge/architecture.md` | Starting a new feature or modifying project structure |
 | `knowledge/conventions.md` | Writing any code (naming, file structure, patterns) |
-| `knowledge/gotchas.md` | Working with the sandbox environment or platform APIs |
+| `knowledge/gotchas.md` | Working with the z.ai sandbox environment or platform APIs |
 | `knowledge/error-patterns.md` | Debugging errors or unexpected behavior |
 
 ### Error Patterns Sample (from `knowledge/error-patterns.md`)
@@ -212,7 +212,7 @@ rm -rf ~/my-project/skills/coding-suisei
 | ☄️ does not appear | Skill not invoked. Use `coding-suisei:` prefix, or start session with web dev keyword first |
 | setup.sh refused by LLM | This was fixed in v2.2 — the script no longer contains `Invoke Skill()` instructions |
 | fullstack-dev routing doesn't delegate | Ensure fullstack-dev was invoked first in the session (web dev keyword), then wrapper is active for subsequent prompts |
-| General coding prompt triggers nothing | Use `coding-suisei:` prefix. Platform trigger matching is unreliable for ambiguous prompts |
+| General coding prompt triggers nothing | Use `coding-suisei:` prefix. z.ai trigger matching is unreliable for ambiguous prompts |
 | `coding-agent` still appears | Run setup.sh again — it will migrate memory and create marker file |
 
 ---
@@ -220,7 +220,7 @@ rm -rf ~/my-project/skills/coding-suisei
 ## Repository Structure
 
 ```
-coding-agent-patch/
+coding-suisei/
 ├── README.md                            # This file
 ├── setup.sh                             # Idempotent install script (v3.0)
 └── skill/

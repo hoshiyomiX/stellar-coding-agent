@@ -20,7 +20,7 @@ This is not optional. This is not a suggestion. You MUST output ⚡ before writi
 
 Failure to output ⚡ means the wrapper did not load properly.
 
-> **Note**: When this wrapper delegates to coding-suisei, that skill will output ☄️. The user should see ⚡ first (wrapper), then ☄️ (coding-suisei).
+> **Note**: When this wrapper delegates to stellar-coding-agent, that skill will output ☄️. The user should see ⚡ first (wrapper), then ☄️ (stellar-coding-agent).
 
 ---
 
@@ -56,13 +56,13 @@ Ask yourself: **Is this request about building/running a Next.js web application
 | Request Type | Action |
 |---|---|
 | **Web Development** | Continue reading the **WEB DEVELOPMENT HANDLER** section below |
-| **General Coding** | Stop here. Invoke `Skill(command='coding-suisei')` and let that skill handle it. Do NOT proceed with the web dev handler. |
+| **General Coding** | Stop here. Invoke `Skill(command='stellar-coding-agent')` and let that skill handle it. Do NOT proceed with the web dev handler. |
 | **Ambiguous** | If unsure, treat as **General Coding** — it's safer to delegate than to force a web dev workflow on a non-web task |
 
 ### Important: Do NOT mix handlers
 
 - Web dev tasks: use the fullstack-dev instructions below (init script, Next.js stack, etc.)
-- General coding tasks: delegate entirely to coding-suisei via `Skill(command='coding-suisei')`
+- General coding tasks: delegate entirely to stellar-coding-agent via `Skill(command='stellar-coding-agent')`
 - Never run `curl https://z-cdn.chatglm.cn/fullstack/init-fullstack_1775040338514.sh | bash` for non-web tasks
 - Never apply Next.js/React patterns to standalone Python scripts or non-web code
 

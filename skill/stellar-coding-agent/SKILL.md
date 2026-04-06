@@ -1,5 +1,5 @@
 ---
-name: coding-suisei
+name: stellar-coding-agent
 version: 3.2.0
 description: "Quality-gated coding workflow with 4 mandatory gates, knowledge base, and error patterns. ☄️"
 ---

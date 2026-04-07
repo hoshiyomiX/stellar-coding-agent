@@ -1,96 +1,107 @@
 ---
 name: stellar-coding-agent
-version: 3.2.0
-description: "Quality-gated coding workflow with 4 mandatory gates, knowledge base, and error patterns. ☄️"
+version: 4.0.1
+description: "Deterministic coding workflow with phase state machine, artifact templates, and structured verification."
 ---
 
-## ☄️ TRIGGER CONFIRMATION (MANDATORY — FIRST ACTION)
+## Purpose
 
-**STOP. Before processing the user's request, output the single character ☄️ as your VERY FIRST response.**
+This framework ensures consistent, high-quality code output by structuring the development workflow as a phase state machine with mandatory artifacts at each phase transition. Every coding task passes through defined phases — specification, planning, implementation, verification — producing traceable artifacts that prevent requirement drift and ensure completeness before delivery.
 
-This is not optional. This is not a suggestion. You MUST output ☄️ before writing ANY other content.
-- Do NOT explain why.
-- Do NOT skip this step.
-- Do NOT output anything before ☄️.
-- The user relies on seeing ☄️ to confirm the skill loaded.
+## Activation
 
-Failure to output ☄️ means the skill did not load properly.
+Output ☄️ as the first response when this skill is loaded. This confirms the framework is active.
 
----
+## Phase State Machine
 
-## QUALITY GATES (MANDATORY — READ BEFORE EVERY TASK)
+```
+  IDLE ──► SPECIFY ──► PLAN ──► IMPLEMENT ──► VERIFY ──► DELIVER
+              ▲                                         │
+              │                                         │
+              └──────────────── Error Recovery ◄────────┘
+```
 
-You MUST follow these gates in order. Do NOT skip any gate.
+Each phase produces a defined artifact before advancing. On error, the workflow returns to VERIFY after recovery.
 
-### GATE 1: Understand Before Coding
+| Phase      | Description |
+|------------|-------------|
+| IDLE       | Waiting for task input |
+| SPECIFY    | Restate the problem, identify constraints and edge cases, list affected files |
+| PLAN       | Create implementation plan with Traceability IDs mapping requirements to code locations |
+| IMPLEMENT  | Write code, referencing Traceability IDs from the plan |
+| VERIFY     | Run linters, trace edge cases, confirm all Traceability IDs are satisfied |
+| DELIVER    | Present completed code with QA attestation |
 
-Before writing ANY code, you must demonstrate understanding:
-- Restate the problem in your own words
-- Identify edge cases and constraints
-- List files that will be created or modified
-- Read `~/code/memory.md` for user preferences if it exists
-- If the task is complex (3+ files, schema change, new endpoint), create a plan (see `workflow/plan-template.md`)
+Full phase definitions are in `procedure/phases.md`.
 
-### GATE 2: Write with Constraints
+## Phase References
 
-Read relevant knowledge files based on task type. You do NOT need to read all files for every task.
+| Phase | Artifact Template | Knowledge Files |
+|-------|-------------------|-----------------|
+| SPECIFY | `procedure/templates/problem-spec.md` | `knowledge/architecture.md` |
+| PLAN | `procedure/templates/implementation-plan.md` | `knowledge/conventions.md` |
+| IMPLEMENT | (code output) | `constraints/code-standards.md`, `constraints/type-safety.md` |
+| VERIFY | `procedure/templates/verification-report.md` | `knowledge/error-patterns.md` |
+| Error Recovery | `procedure/templates/incident-report.md` | `procedure/decision-trees/error-resolution.md` |
 
-| Task Type | Read These Files |
-|-----------|-----------------|
-| Any coding task | `workflow/gates.md` (mandatory) |
-| Web dev (Next.js/React) | `knowledge/conventions.md` + `knowledge/gotchas.md` |
-| Debugging / errors | `knowledge/error-patterns.md` + `knowledge/gotchas.md` |
-| New feature / project change | `knowledge/architecture.md` |
-| Before delivery | `workflow/review-checklist.md` |
+## Complexity Tiers
+
+| Tier | Condition | Workflow |
+|------|-----------|----------|
+| Simple | Single file, no schema change, no new endpoint | Combine SPECIFY+PLAN into one output, skip formal templates, but still produce all required fields |
+| Standard | 2–4 files, or schema change, or new endpoint | Full framework with all templates |
+| Complex | 5+ files, architectural change, multiple services | Full framework + risk assessment + incremental delivery |
+
+## Implementation Rules
 
 While writing code:
-- Each function must have a clear single responsibility
-- Each function must include error handling
 
-### GATE 3: Verify Before Delivery
+- Each code block must reference its Traceability ID from the implementation plan
+- Follow constraints from `constraints/code-standards.md` and `constraints/type-safety.md`
+- Use `'use client'` / `'use server'` directives correctly
+- SDK (`z-ai-web-dev-sdk`) in backend only
 
-Before delivering, you MUST:
-- Run the appropriate linter for the language:
-  - TypeScript/Next.js: `bun run lint`
-  - Python: `python -m py_compile <file>` (or `ruff` if available)
-  - Skip if no linter is available
-- Check for type errors
-- Trace through the code mentally with sample inputs
-- If tests exist, run them
-- Run through `workflow/review-checklist.md`
+## Verification
 
-### GATE 4: Error Stop Protocol
+Before delivery, complete the verification report (`procedure/templates/verification-report.md`):
 
-If ANY error occurs during development:
-- **STOP** — do not continue past errors
-- Diagnose the root cause (read logs, check stack traces)
-- Fix the root cause, not the symptom
-- Re-verify from GATE 3
+- Run linter appropriate to the language
+- Verify all Traceability IDs are implemented
+- Verify all edge cases from problem specification
+- Trace through code mentally with sample inputs
 
-### Delivery Confirmation
+## Error Recovery
 
-After delivering code, append a single line to confirm gate compliance:
+On any error:
+
+1. **Stop** — do not continue past errors
+2. Complete incident report (`procedure/templates/incident-report.md`)
+3. Ask the user before any recovery action with side effects (git changes, file deletions, destructive operations)
+4. Fix root cause, not symptom
+5. Return to VERIFY phase and complete verification report
+
+## QA Attestation
+
+After delivering code, append this compliance report:
 
 ```
-☄️ Gates: G1 ✓ G2 ✓ G3 ✓ G4 N/A
+QA Compliance
+├─ G1 Specify     : PASS
+├─ G2 Plan        : PASS
+├─ G3 Implement   : PASS
+├─ G4 Verify      : PASS
+└─ G5 Error Stop  : N/A
 ```
 
-Use ✗ if a gate was skipped, N/A if not applicable (e.g., G4 N/A when no errors occurred).
+Status values: `PASS` (fully completed), `FAIL` (skipped or incomplete), `N/A` (not applicable).
+Output this only when all applicable phases were actually completed.
 
----
+## Scope
 
-## Honesty Clause
+This framework operates within the user's project directory and does not:
 
-This skill is **text instructions** injected into your context. It cannot physically force compliance. The gates work because you choose to follow them. If you skip a gate, the delivery confirmation above becomes meaningless — do not output it unless you actually followed the gates.
-
----
-
-## Scope Boundaries
-
-This skill NEVER:
-- Executes code automatically
-- Makes network requests
-- Accesses files outside `~/code/` and the user's project
-- Modifies its own SKILL.md or auxiliary files
-- Takes autonomous action without user awareness
-- Delegates to sub-agents without user's explicit request
+- Execute code automatically
+- Access files outside the project directory
+- Modify its own skill files
+- Take destructive action without user awareness
+- Delegate to sub-agents without user request

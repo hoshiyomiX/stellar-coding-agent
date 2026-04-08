@@ -3,13 +3,14 @@
 ## [4.2.1] — 2026-04-08
 
 ### Changed
+- Activation banner: removed `{version}` placeholder, hardcoded actual version to prevent hallucination
 - setup.sh rewritten: clean wipe-and-mirror deploy instead of incremental copy
 - Old PART 2 (hardcoded deprecated file list) removed — no longer needed since `rm -rf` guarantees clean state
 - Reduced from 5 parts to 4 parts (PART 1+2 merged into single clean deploy)
 - `SOURCE_DIR` now points directly at `skill/stellar-coding-agent/` (one level deeper)
 
 ### Why
-Incremental `cp` left orphan files when future versions removed files from the repo. The clean `rm -rf` + `cp -R` approach guarantees the installed directory is always a 1:1 mirror of the source, with no stale artifacts from previous versions.
+Incremental `cp` left orphan files when future versions removed files from the repo. The clean `rm -rf` + `cp -R` approach guarantees the installed directory is always a 1:1 mirror of the source, with no stale artifacts from previous versions. The `{version}` placeholder in the activation banner caused rare hallucinated version numbers (e.g. "v1.0") — hardcoding the version eliminates this.
 
 ## [4.2.0] — 2026-04-08
 

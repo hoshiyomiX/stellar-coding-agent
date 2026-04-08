@@ -1,6 +1,6 @@
 ---
 name: stellar-coding-agent
-version: 4.2.0
+version: 4.2.1
 description: "Deterministic coding workflow with phase state machine, artifact templates, and structured verification."
 ---
 
@@ -10,14 +10,12 @@ This framework ensures consistent, high-quality code output by structuring the d
 
 ## Activation
 
-When this skill is loaded, output the activation banner exactly as shown below (substitute the version number from the YAML frontmatter):
+When this skill is loaded, output the following banner exactly as written. Do not modify, paraphrase, or add extra text before or after it.
 
 ```
-☄️ STELLAR · v{version} · ACTIVE
+☄️ STELLAR · v4.2.1 · ACTIVE
    Phase State Machine loaded — 6 phases · 5 artifact templates · ready for input
 ```
-
-This confirms the framework is active and the version is visible. Do not add extra text before or after this banner.
 
 ## Phase State Machine
 

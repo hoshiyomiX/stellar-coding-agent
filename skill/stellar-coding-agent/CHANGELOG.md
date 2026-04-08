@@ -4,7 +4,10 @@
 
 ### Added
 - Git / Version Control error classification in `error-resolution.md` — new category with diagnostic path for git push rejection, merge conflicts, force push, and infrastructure-blocked git commands
-- Git operation rules in `SKILL.md` Error Recovery section — mandatory rules that override general error recovery for git-related operations
+- Git / Version Control option in `incident-report.md` Error Classification field
+
+### Changed
+- Error Recovery section in `SKILL.md` — added mandatory git operation rules as override to general error recovery
 
 ### Why
 An agent in another session encountered a fatal cascading failure: `git push` was rejected (remote diverged), then the agent automatically escalated through `git pull --rebase` → `git rebase --abort` → `git reset --hard` → `rm -rf .git`, each command blocked by infrastructure, leaving the agent completely paralyzed. The root cause was twofold: (1) the error classification table had no "Git / Version Control" category, so the agent had no decision path for git errors; (2) the general "ask before side effects" rule was too vague for git operations — `git pull` doesn't read as "destructive" even though it can trigger merge conflicts that lead to cascading failures. The fix adds a dedicated git error category with an explicit "fetch first, then ask" policy, and elevates git rules to a mandatory override in the main SKILL.md so they cannot be missed.

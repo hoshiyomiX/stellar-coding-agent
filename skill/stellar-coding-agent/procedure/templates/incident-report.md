@@ -21,7 +21,7 @@ Copy and complete the following when an error is encountered:
 |-------|-------|
 | Phase When Error Occurred | SPECIFY / PLAN / IMPLEMENT / VERIFY |
 | Error Message | [Exact error text — paste verbatim] |
-| Error Classification | Compilation / Runtime / Network / Type / Database / Other |
+| Error Classification | Compilation / Runtime / Network / Type / Database / Git / Version Control / Other |
 | Stack Trace | [If available — paste in full] |
 | Context | [What the agent was doing when the error occurred] |
 

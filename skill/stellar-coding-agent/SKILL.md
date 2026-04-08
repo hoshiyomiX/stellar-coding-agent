@@ -121,10 +121,10 @@ Defects found and fixed: [n]
 
 ## Scope
 
-This framework operates within the user's project directory and does not:
+When using this framework to execute a coding task, the agent operates within the user's project directory and does not:
 
 - Execute code automatically
 - Access files outside the project directory
-- Modify its own skill files
+- Modify its own skill files (framework maintenance is a separate task, not a coding task)
 - Take destructive action without user awareness
 - Delegate to sub-agents without user request

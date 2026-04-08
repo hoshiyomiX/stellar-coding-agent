@@ -81,7 +81,7 @@ Use the error message and context to classify the error into one of the categori
 
 1. **On `git push` rejected (remote has diverged):**
    a. Run `git fetch origin` to see what changed on the remote.
-   b. Run `git log HEAD..origin/main --oneline` (or the appropriate branch) to inspect the divergent commits.
+   b. Run `git log HEAD..origin/<branch> --oneline` (use the current branch name) to inspect the divergent commits.
    c. Present the situation to the user: "Remote has N commits ahead of local. [Summarize what changed]. How would you like to proceed?"
    d. **Do NOT** run `git pull`, `git rebase`, or `git merge` without explicit user instruction.
    e. If the user asks you to resolve it, follow their specific instruction. If they say "rebase", confirm before executing.

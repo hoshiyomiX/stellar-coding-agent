@@ -1,6 +1,6 @@
 ---
 name: stellar-coding-agent
-version: 4.4.0
+version: 4.4.1
 description: "Deterministic coding workflow with phase state machine, artifact templates, and structured verification."
 ---
 <!-- VERSION SYNC: on bump, update (1) frontmatter above, (2) activation banner below, (3) setup.sh header -->
@@ -14,9 +14,15 @@ This framework ensures consistent, high-quality code output by structuring the d
 When this skill is loaded, output the following banner exactly as written. Do not modify, paraphrase, or add extra text before or after it.
 
 ```
-☄️ STELLAR · v4.4.0 · ACTIVE
+☄️ STELLAR · v4.4.1 · ACTIVE
    Phase State Machine loaded — 6 phases · 4 artifact templates · ready for input
 ```
+
+**After printing the banner, this framework is active.** Every coding task received from this point MUST go through the phase state machine: SPECIFY → PLAN → IMPLEMENT → VERIFY → DELIVER. This means:
+- Do not skip phases — each phase must produce its artifact before advancing
+- Do not produce informal code without the specification, plan, and verification artifacts
+- Do not omit the QA Attestation after delivery
+- If the user's request is not a coding task (conversation, questions, feedback, framework maintenance), the phase machine does not apply
 
 ## Phase State Machine
 
@@ -27,7 +33,7 @@ When this skill is loaded, output the following banner exactly as written. Do no
               └──────────────── Error Recovery ◄────────┘
 ```
 
-Each phase produces a defined artifact before advancing. On error, the workflow returns to VERIFY after recovery.
+**Every phase is mandatory.** Each phase produces a defined artifact before advancing. Do not skip, merge silently, or bypass phases. On error, the workflow returns to VERIFY after recovery.
 
 | Phase      | Description |
 |------------|-------------|

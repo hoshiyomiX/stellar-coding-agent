@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.4.1] — 2026-04-11
+
+### Changed
+- Activation section now includes explicit compliance binding after the banner — defines "ACTIVE" as a mandatory behavioral requirement, not just a status label
+- Phase State Machine section changed from informational description to imperative instruction ("Every phase is mandatory")
+
+### Why
+In rare cases, the agent printed the activation banner correctly but then ignored the entire framework — no specification, no plan, no verification, no QA Attestation. Root cause: the Activation section contained only one instruction ("output the banner") and described the framework using informational language. The LLM complied with the explicit command and treated everything else as optional context. The fix adds a direct imperative after the banner stating that every coding task MUST follow the phase machine, and converts the Phase State Machine section from "this is how it works" to "you must do this."
+
+### Honest limitation
+This fix improves compliance but cannot guarantee it. No amount of text in a skill file can force an LLM to follow a procedure in every session — attention varies, context windows degrade, and different model runs have different behavior. The compliance instruction is placed in the Activation section (highest attention) and uses direct imperatives, which gives it the best chance of being followed, but it remains best-effort.
+
 ## [4.4.0] — 2026-04-08
 
 ### Added

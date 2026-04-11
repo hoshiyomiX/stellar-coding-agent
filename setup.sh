@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ============================================================
-#  stellar-coding-agent install v4.4.0 — phase state machine
+#  stellar-coding-agent install v4.4.1 — phase state machine
 #
 #  What this does:
 #    1. Wipes and redeploys stellar-coding-agent (clean mirror)
@@ -39,7 +39,7 @@ fail()  { echo -e "${RED}[FAIL]${NC}  $*"; }
 
 echo ""
 echo "============================================"
-echo "  stellar-coding-agent v4.4.0"
+echo "  stellar-coding-agent v4.4.1"
 echo "  Trigger marker: ☄️"
 echo "============================================"
 echo ""
@@ -169,7 +169,7 @@ fi
 echo ""
 echo "============================================"
 if [ $ERRORS -eq 0 ]; then
-    echo -e "${GREEN}  ☄️ stellar-coding-agent v4.4.0 installed!${NC}"
+    echo -e "${GREEN}  ☄️ stellar-coding-agent v4.4.1 installed!${NC}"
     echo ""
     echo "  • stellar-coding-agent -> skills/stellar-coding-agent/"
     echo "    Phase state machine + artifact templates + knowledge base"

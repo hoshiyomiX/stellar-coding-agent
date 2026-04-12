@@ -1,5 +1,18 @@
 # Changelog
 
+## [4.5.0] — 2026-04-12
+
+### Added
+- Coexistence Mode — new "Coexistence with fullstack-dev" section defining how this framework layers with the platform-provided fullstack-dev skill
+- IMPLEMENT phase defers technology-specific decisions to fullstack-dev when it is active; falls back to own `constraints/` and `knowledge/` files when standalone
+- Implementation Rules now conditional: tech-specific rules apply only in standalone mode
+
+### Changed
+- Version bumped to v4.5.0
+
+### Why
+fullstack-dev persists across sessions (system prompt level) and provides deep Next.js technical expertise. This framework provides orthogonal process governance (phase state machine, traceability, verification). Rather than duplicating fullstack-dev's technical rules and risking conflicting instructions, the framework now natively recognizes fullstack-dev's presence and defers to it for IMPLEMENT-phase technology decisions. SPECIFY, PLAN, VERIFY, and DELIVER remain fully under this framework's control in both modes. This allows users to load both skills and get the best of both: disciplined process AND expert technical knowledge, with no rule conflicts.
+
 ## [4.4.2] — 2026-04-11
 
 ### Changed

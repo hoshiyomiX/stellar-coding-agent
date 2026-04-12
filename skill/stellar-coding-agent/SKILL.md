@@ -1,6 +1,6 @@
 ---
 name: stellar-coding-agent
-version: 4.4.2
+version: 4.5.0
 description: "Deterministic coding workflow with phase state machine, artifact templates, and structured verification."
 ---
 <!-- VERSION SYNC: on bump, update (1) frontmatter above, (2) activation banner below, (3) setup.sh header -->
@@ -14,7 +14,7 @@ This framework ensures consistent, high-quality code output by structuring the d
 When this skill is loaded, output the following banner exactly as written. Do not modify, paraphrase, or add extra text before or after it.
 
 ```
-☄️ STELLAR · v4.4.2 · ACTIVE
+☄️ STELLAR · v4.5.0 · ACTIVE
    Phase State Machine loaded — 6 phases · 4 artifact templates · ready for input
 ```
 
@@ -22,6 +22,25 @@ When this skill is loaded, output the following banner exactly as written. Do no
 - Do not skip phases — each phase must produce its artifact before advancing
 - Do not produce informal code without the specification, plan, and verification artifacts
 - Do not omit the QA Attestation — it is required after every task, coding or not
+
+## Coexistence with fullstack-dev
+
+fullstack-dev is a platform-provided skill that persists across sessions (injected at the system prompt level). It provides technology-specific expertise: Next.js patterns, UI conventions, SDK usage, project structure, and deployment rules. This framework provides process governance: phase state machine, artifact traceability, structured verification, and QA attestation. These are orthogonal concerns — one governs *what* to build with, the other governs *how* to work.
+
+**When fullstack-dev is active** (present in the system prompt or previously invoked in this session):
+
+- SPECIFY, PLAN, VERIFY, DELIVER phases operate normally — they are process-level and technology-agnostic
+- IMPLEMENT phase defers technology-specific decisions to fullstack-dev:
+  - Tech stack, UI component selection, project structure, routing patterns
+  - `'use client'` / `'use server'` directive placement
+  - Styling conventions, responsive design, animation choices
+  - SDK usage patterns, API route structure, database schema design
+- Error Recovery git rules remain in effect — this framework's rules are stricter and override defaults
+- QA Attestation remains mandatory — it evaluates process compliance, not technology correctness
+
+**When fullstack-dev is NOT active**, this framework applies its own `constraints/` and `knowledge/` files for technical guidance. All rules in "Implementation Rules" apply directly.
+
+**Both modes produce the same artifacts.** The difference is only in which knowledge source informs the IMPLEMENT phase — coexistence mode leverages fullstack-dev's deeper Next.js expertise; standalone mode uses this framework's general-purpose constraints.
 
 ## Phase State Machine
 
@@ -69,8 +88,8 @@ While writing code:
 
 - Each code block must reference its Traceability ID from the implementation plan
 - Follow constraints from `constraints/code-standards.md` and `constraints/type-safety.md`
-- Use `'use client'` / `'use server'` directives correctly
-- SDK (`z-ai-web-dev-sdk`) in backend only
+- When fullstack-dev is active, defer technology-specific decisions (directives, SDK usage, component selection) to it — see "Coexistence with fullstack-dev" above
+- When fullstack-dev is NOT active, apply general rules: `'use client'` / `'use server'` directives correctly, SDK (`z-ai-web-dev-sdk`) in backend only
 
 ## Verification
 

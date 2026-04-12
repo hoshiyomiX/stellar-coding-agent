@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
 # ============================================================
-#  stellar-coding-agent install v4.4.2 — phase state machine
+#  stellar-coding-agent install v4.5.0 — phase state machine + coexistence
 #
 #  What this does:
 #    1. Wipes and redeploys stellar-coding-agent (clean mirror)
-#    2. Restores fullstack-dev to original (removes old wrapper)
+#    2. Restores fullstack-dev to original (removes old wrapper from v4.0.x)
 #    3. Cleans up legacy skill directories
+#
+#  Coexistence model:
+#    stellar-coding-agent = process governance (phases, traceability, attestation)
+#    fullstack-dev         = technical expertise (Next.js, UI, SDK, project structure)
+#    Both can be loaded simultaneously — they are orthogonal, not competing.
 #
 #  Usage:
 #    git clone https://github.com/hoshiyomiX/stellar-coding-agent.git /tmp/cap
@@ -39,7 +44,7 @@ fail()  { echo -e "${RED}[FAIL]${NC}  $*"; }
 
 echo ""
 echo "============================================"
-echo "  stellar-coding-agent v4.4.2"
+echo "  stellar-coding-agent v4.5.0"
 echo "  Trigger marker: ☄️"
 echo "============================================"
 echo ""
@@ -169,10 +174,11 @@ fi
 echo ""
 echo "============================================"
 if [ $ERRORS -eq 0 ]; then
-    echo -e "${GREEN}  ☄️ stellar-coding-agent v4.4.2 installed!${NC}"
+    echo -e "${GREEN}  ☄️ stellar-coding-agent v4.5.0 installed!${NC}"
     echo ""
     echo "  • stellar-coding-agent -> skills/stellar-coding-agent/"
     echo "    Phase state machine + artifact templates + knowledge base"
+    echo "  • Coexists with fullstack-dev (process + technical expertise)"
     echo "  • Invoke with: Skill(command=\"stellar-coding-agent\")"
     echo "============================================"
 else

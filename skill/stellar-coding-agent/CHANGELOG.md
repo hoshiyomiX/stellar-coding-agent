@@ -1,5 +1,20 @@
 # Changelog
 
+## [5.1.0] — 2026-04-19
+
+### Added
+
+- **"When Active" section** — placed in high-attention zone (after Activation, before Preview Bootstrap). Defines what a "task" is (code/file changes vs conversation), connects task-start to phase declaration, and connects task-end to PCR output. Addresses the failure mode where the LLM loads the skill, understands the framework, but skips it entirely because the PCR block was in the low-attention tail of SKILL.md.
+- **Cross-reference** in Process Compliance Report section pointing back to "When Active."
+
+### Changed
+
+- **Abbreviation guidance** — "abbreviate when they don't" → "abbreviate when the task is simple, but never skip entirely." The v5.0.0 permissive language was too loose; the LLM interpreted "simple task" as "zero phases." Adding a floor: SPECIFY+PLAN combined into one paragraph, PCR always output.
+
+### Why
+
+Commit edb092c (boot.sh auto-update) was implemented without following the framework — no SPECIFY, no PLAN, no PCR. Root cause: the PCR block at lines 89-103 of SKILL.md was in the LLM's low-attention zone, and the v5.0.0 language gave too much room to rationalize skipping. The fix moves the completion signal to high-attention territory (lines 17-21) and adds a concrete abbreviation floor. This does not guarantee compliance (nothing in a text file can) but makes the tools visible when they're needed.
+
 ## [5.0.0] — 2026-04-13
 
 ### Philosophy Change

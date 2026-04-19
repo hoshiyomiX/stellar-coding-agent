@@ -1,18 +1,25 @@
 ---
 name: stellar-coding-agent
-version: 5.0.0
 description: "Deterministic coding workflow with phase state machine, artifact templates, and structured verification."
+metadata:
+  version: 5.1.0
 ---
 <!-- VERSION SYNC: on bump, update (1) frontmatter above, (2) activation banner below, (3) setup.sh header -->
 
 ## Activation
 
 ```
-☄️ STELLAR · v5.0.0 · ACTIVE
+☄️ STELLAR · v5.1.0 · ACTIVE
    Phase State Machine · Traceability IDs · Artifact Templates · SSV
 ```
 
-This framework structures coding work as a phase machine. It provides templates and traceability tools — use them when they help, abbreviate when they don't. The phases exist because skipping straight to code is how most bugs happen, not because every task needs a formal spec.
+This framework structures coding work as a phase machine. It provides templates and traceability tools — abbreviate when the task is simple, but never skip entirely. The phases exist because skipping straight to code is how most bugs happen, not because every task needs a formal spec.
+
+## When Active
+
+A **task** is any request that produces code, file changes, or deliverables. Conversation, questions, and feedback are not tasks.
+
+When a task begins: state which phase you're entering. When a task ends: output a PCR block (see Process Compliance Report below). For simple tasks (single file, no schema change), combine SPECIFY+PLAN into one paragraph — but still output PCR at the end.
 
 ## Preview Bootstrap
 
@@ -88,7 +95,7 @@ Full decision tree: `procedure/decision-trees/error-resolution.md`.
 
 ## Process Compliance Report
 
-After completing a task, output this block. Phases not applicable to the task are marked N/A.
+Output this block after every task (see "When Active" above). Phases not applicable to the task are marked N/A.
 
 ```
 ☄️ PCR

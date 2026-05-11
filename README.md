@@ -171,12 +171,11 @@ stellar-frameworks/
 
 | Version | Summary |
 |---------|---------|
-| [**v5.3.0**](skill/stellar-frameworks/CHANGELOG.md) | Task type awareness, knowledge restructure (universal/platform), skill chain orchestration, memory hardening, compact verification, PCR tier, TodoWrite integration, AI/SDK error path. |
+| [**v5.3.0**](skill/stellar-frameworks/CHANGELOG.md) | Task type awareness, knowledge restructure (universal/platform), skill chain orchestration, memory hardening, compact verification, PCR tier, TodoWrite integration, AI/SDK error path, completion signal. |
 | [**v5.2.0**](skill/stellar-frameworks/CHANGELOG.md) | Agent memory system (Hermes+Memweave inspired), complexity tiers, compact PCR, path safety, triggering improvements. |
 | [**v5.1.0**](skill/stellar-frameworks/CHANGELOG.md) | Completion signal moved to high-attention zone, abbreviation floor added. |
 | [v5.0.0](skill/stellar-frameworks/CHANGELOG.md) | Philosophical reset. Removed compliance theater, kept useful tools. Added `boot.sh` self-heal. |
 | [v4.6.0](skill/stellar-frameworks/CHANGELOG.md) | Source State Verification (SSV). Evidence tiers in attestation. |
 | [v4.5.0](skill/stellar-frameworks/CHANGELOG.md) | Coexistence mode with fullstack-dev. *(Removed in v5.0.0)* |
-| [v4.4.0](skill/stellar-frameworks/CHANGELOG.md) | Git error classification and safety rules. |
-| [v4.3.0](skill/stellar-frameworks/CHANGELOG.md) | OUTCOME gate, evidence requirement, defect counter. |
+| [v4.4.2](skill/stellar-frameworks/CHANGELOG.md) | QA Attestation required for all tasks (not just coding). |
 | [v4.0.0](skill/stellar-frameworks/CHANGELOG.md) | Complete redesign: phase state machine, artifact templates, traceability IDs. |

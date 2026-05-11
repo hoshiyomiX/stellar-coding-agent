@@ -72,7 +72,7 @@ These reminders are lightweight — a single line of context that keeps memory a
 <!-- Approaches that work well for this user/project -->
 
 ---
-budget: ~X/2000 chars
+budget: ~X/3000 chars
 ```
 
 ### decisions.md (Evergreen)

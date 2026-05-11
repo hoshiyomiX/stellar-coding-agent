@@ -96,7 +96,8 @@ if $NEED_INSTALL; then
     knowledge/universal/conventions.md \
     knowledge/universal/error-patterns.md \
     knowledge/platform/zai-sandbox.md \
-    memory-template.md; do
+    memory-template.md \
+    CHANGELOG.md; do
     if [ -f "$INSTALL_DIR/$f" ]; then
       : # OK
     else

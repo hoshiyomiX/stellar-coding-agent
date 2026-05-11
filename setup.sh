@@ -83,6 +83,7 @@ if [ -f "${INSTALL_DIR}/SKILL.md" ]; then
         knowledge/universal/conventions.md \
         knowledge/universal/error-patterns.md \
         knowledge/platform/zai-sandbox.md \
+        memory-template.md \
         CHANGELOG.md; do
         if [ -f "${INSTALL_DIR}/${f}" ]; then
             ok "${f}"

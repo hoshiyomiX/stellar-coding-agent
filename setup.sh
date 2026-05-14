@@ -55,6 +55,7 @@ if [ -d "${OBSOLETE_DIR}" ]; then
 fi
 
 # --- Fresh install ---
+mkdir -p "${INSTALL_DIR}"
 cp -R "${SOURCE_DIR}" "${INSTALL_DIR}"
 ok "Files deployed to ${INSTALL_DIR}"
 

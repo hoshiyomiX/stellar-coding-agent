@@ -115,7 +115,14 @@ Structured 5-step decision tree: **capture → classify → identify actions →
 
 ### Session Persistence
 
-The z.ai platform may wipe the `skills/` directory on session reset. `boot.sh` handles this automatically by copying git-tracked `skill/` → `skills/` before starting the dev server. No manual re-install needed.
+The z.ai platform may wipe the `skills/` directory on session reset. `boot.sh` handles this with two self-heal layers:
+
+| Layer | Trigger | What it does |
+|-------|---------|-------------|
+| **`.bashrc` hook** | Every shell open | Auto-runs `boot.sh --install-only` in background (non-blocking) |
+| **Manual one-liner** | First time in a fresh sandbox | `git clone` + `boot.sh` — also sets up `.bashrc` hook for future shells |
+
+After running the one-liner once, the `.bashrc` hook persists — future session resets auto-heal without manual intervention.
 
 ---
 

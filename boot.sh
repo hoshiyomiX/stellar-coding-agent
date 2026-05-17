@@ -1,5 +1,5 @@
 #!/bin/bash
-# stellar-frameworks — Install, self-heal (git-tracked) v5.4.8
+# stellar-frameworks — Install, self-heal (git-tracked) v5.5.0
 # Pure skill installer + popup preview provider. No Next.js bootstrap.
 # Self-heal: after first run, adds two-phase hook to shell init files.
 # Popup preview: creates .zscripts/dev.sh AND launches it for immediate :3000 serving.
@@ -311,7 +311,7 @@ echo "[boot] Auto-heal hook written to $HOOKS_WRITTEN/3 init files (git-pull-the
 if $NEED_INSTALL; then
   echo ""
   echo "╔══════════════════════════════════════════════════════════════╗"
-  echo "║  ☄️ v5.4.8 installed and ACTIVE — no restart needed!         ║"
+  echo "║  ☄️ v5.5.0 installed and ACTIVE — no restart needed!         ║"
   echo "║  Popup preview: LIVE on :3000 (persistent, unkillable).    ║"
   echo "║  Invoke: Skill(command=\"stellar-frameworks\")                 ║"
   echo "║  Auto-heal: two-phase hook in 3 init files.                  ║"

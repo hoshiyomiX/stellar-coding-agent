@@ -1,7 +1,7 @@
 ---
 name: stellar-frameworks
 version: 5.5.0
-description: "Core workflow — runs ALL tasks through a phase machine (SPECIFY → PLAN → IMPLEMENT → VERIFY → DELIVER) without exception. Coding tasks: full phases with Traceability IDs and verification. Non-coding tasks (questions, explanations, recommendations): Minimal tier — all phases run internally, only IMPLEMENT produces output. Every task gets a Process Compliance Report. Covers building features, fixing bugs, refactoring, writing scripts, debugging, generating code, answering questions, explaining concepts, and providing recommendations. The phase machine always activates — complexity adapts, participation never skips."
+description: "Deterministic coding workflow with phase state machine, traceability IDs, artifact templates, and structured verification. Use this skill for any task involving code changes: building features, fixing bugs, refactoring, writing scripts, debugging, or generating code. Also activates for document creation, data visualization, data processing, and complex multi-step tasks where structured planning prevents scope drift. Non-coding questions and explanations use internal phases (no templates). Complexity adapts automatically — simple tasks abbreviate, complex tasks get full ceremony."
 ---
 <!-- VERSION SYNC: on bump, update (1) frontmatter above, (2) activation banner below, (3) boot.sh header, (4) setup.sh header, (5) README.md badge + invoke line + version history, (6) CHANGELOG.md -->
 
@@ -121,20 +121,9 @@ SADC is the first action in SPECIFY. The problem specification must reference th
 
 ## Adaptive Pivot Protocol
 
-Not every error is a bug. Some errors signal that the chosen approach is fundamentally wrong — a library doesn't work as documented, a framework lacks a required feature, or the architecture assumption was invalid. Fixing code bugs when the real problem is the approach wastes time and context.
+On every error, classify it as **Code Bug** or **Approach Failure** before attempting a fix. Approach Failure signals (50%+ rewrite needed, same error after 2 attempts, missing library feature, data model change) trigger a pivot to the fallback approach defined in the Scope PCR. See `procedure/decision-trees/error-resolution.md` for the full Pivot Assessment criteria and recovery flow.
 
-**Rule**: On every error, classify it as either a **Code Bug** or an **Approach Failure** before attempting a fix.
-
-| Signal | Classification | Action |
-|--------|---------------|--------|
-| Fix requires rewriting 50%+ of implementation | Approach Failure | Evaluate alternatives, present pivot to user |
-| Same error recurs after 2 fix attempts | Approach Failure | Stop fixing, re-evaluate approach |
-| Fix requires changing data model / API contract | Approach Failure | Re-enter PLAN with new approach |
-| Required library/framework feature doesn't exist | Approach Failure | Pivot to alternative (use Scope PCR fallback) |
-| Typo, wrong variable, missing null check | Code Bug | Normal fix → VERIFY |
-| Type mismatch, import error, lint violation | Code Bug | Normal fix → VERIFY |
-
-**Pivot flow**: Error detected → classify → if Approach Failure: re-enter PLAN with fallback approach (from Scope PCR) or new approach → present to user → re-implement → re-verify. The PIVOT field in the delivery PCR records this event.
+**Pivot flow**: Error detected → classify → if Approach Failure: re-enter PLAN with fallback (from Scope PCR) or new approach → present to user → re-implement → re-verify. Record in the PIVOT field of the delivery PCR.
 
 ## Error Recovery
 
@@ -153,16 +142,16 @@ Full decision tree: `procedure/decision-trees/error-resolution.md`.
 
 ## Phase Gate Protocol
 
-Phase transitions are not free. Each gate has an entry condition that must be satisfied before the next phase begins. Gates prevent drift — if a phase produces incomplete output, the next phase receives incomplete input, and the gap compounds.
+Phase transitions are guarded — each gate has an entry condition. See `procedure/phases.md` for full gate definitions.
 
-| Gate | Condition | Block if fails |
-|------|-----------|----------------|
-| SPECIFY → PLAN | All problem-spec fields filled, SADC complete | Complete missing fields |
-| PLAN → IMPLEMENT | Scope PCR output (Standard/Complex) | Present plan first |
-| IMPLEMENT → VERIFY | Self-review checklist pass, all IMPL steps done | Fix issues first |
-| VERIFY → DELIVER | All verification items PASS | Return to IMPLEMENT |
+| Gate | Condition |
+|------|----------|
+| SPECIFY → PLAN | All problem-spec fields filled, SADC complete |
+| PLAN → IMPLEMENT | Scope PCR output (Standard/Complex) |
+| IMPLEMENT → VERIFY | Self-review pass, all IMPL steps done |
+| VERIFY → DELIVER | All verification items PASS |
 
-For Simple tasks, the PLAN → IMPLEMENT gate is implicit (no user confirmation required, but scope must still be internally validated). For Standard/Complex tasks, the Scope PCR is a formal output that the implementation must honor. Any deviation from the Scope PCR must appear in the delivery PCR's DELTA field.
+Any deviation from the Scope PCR must appear in the delivery PCR's DELTA field.
 
 ## Process Compliance Report (PCR v2)
 

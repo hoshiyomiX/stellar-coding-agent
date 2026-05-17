@@ -70,10 +70,11 @@ if [ -f "${INSTALL_DIR}/SKILL.md" ]; then
         ERRORS=$((ERRORS + 1))
     fi
 
-    if grep -q "v5.5.0" "${INSTALL_DIR}/SKILL.md"; then
-        ok "Version 5.5.0 confirmed"
+    INSTALLED_VER="$(grep -oP 'version:\s*\K[0-9]+\.[0-9]+\.[0-9]+' "${INSTALL_DIR}/SKILL.md" 2>/dev/null || echo "0.0.0")"
+    if [ "$INSTALLED_VER" = "5.5.0" ]; then
+        ok "Version ${INSTALLED_VER} confirmed"
     else
-        fail "Version mismatch"
+        fail "Version mismatch: expected 5.5.0, got ${INSTALLED_VER}"
         ERRORS=$((ERRORS + 1))
     fi
 
@@ -195,7 +196,7 @@ fi
 echo ""
 echo "============================================"
 if [ $ERRORS -eq 0 ]; then
-    echo -e "${GREEN}  ☄️ v5.4.8 installed and ACTIVE — no restart needed!${NC}"
+    echo -e "${GREEN}  ☄️ v5.5.0 installed and ACTIVE — no restart needed!${NC}"
     echo ""
     echo "  Popup preview: LIVE on :3000 (persistent, unkillable)."
     echo "  Invoke: Skill(command=\"stellar-frameworks\")"

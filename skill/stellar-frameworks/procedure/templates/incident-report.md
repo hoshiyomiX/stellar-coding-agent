@@ -34,6 +34,19 @@ Copy and complete the following when an error is encountered:
 | Is this a symptom or root cause? | [Symptom / Root cause — if symptom, identify the root cause] |
 | Could this error recur in other parts of the codebase? | [Yes / No — if Yes, list other locations] |
 
+## Pivot Assessment
+
+| Field | Value |
+|-------|-------|
+| Is Approach Failure? | YES / NO |
+| Pivot Signal | [Which signal triggered this: 50%+ rewrite / same error after 2 attempts / missing library feature / data model change / N/A] |
+| Fallback Available? | YES / NO — if YES, reference the Scope PCR's Fallback Approach |
+| Fallback Viable? | [Is the fallback still viable given what was learned from the failure?]
+| New Approach | [Describe the alternative approach — either the fallback or a new one] |
+| User Approval Required? | YES / NO |
+
+If Approach Failure is YES, stop fixing the current approach and follow the pivot flow in `procedure/decision-trees/error-resolution.md`. If Code Bug, write N/A in all fields above and proceed to Proposed Fix.
+
 ## Proposed Fix
 
 | Field | Value |
